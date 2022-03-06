@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  creationTimestamp: null
+  labels:
+    name: sierra-axe
+  name: sierra-axe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: sierra-axe
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+      creationTimestamp: null
+      labels:
+        name: sierra-axe
+    spec:
+      containers:
+        - env:
+            - name: HTTP_PORT
+              value: "80"
+            - name: RTMP_FRAG_SIZE
+              value: 2s
+            - name: RTMP_PLAYLIST_LENGTH
+              value: 10s
+            - name: RTMP_PORT
+              value: "1935"
+            - name: STREAM_APP_NAME
+              value: stream
+          image: bluestream.azurecr.io/sierra-axe:0.1.0
+          name: sierra-axe
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 1935
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  creationTimestamp: null
+  labels:
+    name: sierra-axe-service
+  name: sierra-axe-service
+spec:
+  ports:
+    - name: rmtp
+      port: 1935
+      targetPort: 1935
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    name: sierra-axe-service
+  type: NodePort
+status:
+  loadBalancer: {}

@@ -1,0 +1,16 @@
+version: '3'
+
+  services:
+
+  skystream:
+    ports:
+      - "1935:1935"
+      - "80:80"
+    environment:      
+    links:
+  image:
+    repository: skyborg\skystream
+    pullPolicy: IfNotPresent
+    tag: 0.1.0
+  container_name: skystream
+
