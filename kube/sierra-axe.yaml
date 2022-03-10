@@ -1,45 +1,51 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-  creationTimestamp: null
-  labels:
-    name: sierra-axe
   name: sierra-axe
+  labels:
+    app: sierra-axe
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      name: sierra-axe
-  strategy: {}
+      app: sierra-axe
+  replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
-      annotations:
-      creationTimestamp: null
       labels:
-        name: sierra-axe
+        app: sierra-axe
     spec:
       containers:
-        - env:
+        - name: sierra-axe
+          image: 'ghcr.io/deathbymisadventure/sierra-axe:0.1.0'
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: rtmp
+              containerPort: 1935
+              protocol: TCP
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          env:
             - name: HTTP_PORT
-              value: "80"
+              value: '80'
             - name: RTMP_FRAG_SIZE
               value: 2s
             - name: RTMP_PLAYLIST_LENGTH
               value: 10s
             - name: RTMP_PORT
-              value: "1935"
+              value: '1935'
             - name: STREAM_APP_NAME
               value: stream
-          image: bluestream.azurecr.io/sierra-axe:0.1.0
-          name: sierra-axe
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 1935
-            - containerPort: 80
-          resources: {}
-      restartPolicy: Always
-status: {}
+          livenessProbe:
+            httpGet:
+              host: ''
+              path: /stat
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 30
 ---
 apiVersion: v1
 kind: Service
@@ -54,11 +60,11 @@ spec:
     - name: rmtp
       port: 1935
       targetPort: 1935
+      nodePort: 31935
     - name: http
       port: 80
       targetPort: 80
+      nodePort: 30080
   selector:
-    name: sierra-axe-service
+    app: sierra-axe
   type: NodePort
-status:
-  loadBalancer: {}
