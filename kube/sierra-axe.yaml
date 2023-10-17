@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: sierra-axe
-          image: 'ghcr.io/deathbymisadventure/sierra-axe:0.1.0'
+          image: 'ghcr.io/deathbymisadventure/sierra-axe:latest'
           imagePullPolicy: IfNotPresent
           ports:
             - name: rtmp
