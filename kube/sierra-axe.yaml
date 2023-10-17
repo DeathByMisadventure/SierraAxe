@@ -18,6 +18,7 @@ spec:
     spec:
       containers:
         - name: sierra-axe
+          resources: {}
           image: 'ghcr.io/deathbymisadventure/sierra-axe:latest'
           imagePullPolicy: IfNotPresent
           ports:
@@ -50,8 +51,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-  creationTimestamp: null
   labels:
     name: sierra-axe-service
   name: sierra-axe-service
