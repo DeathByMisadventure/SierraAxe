@@ -3,6 +3,19 @@
 A Dockerfile installing NGINX, nginx-rtmp-module and FFmpeg from source with
 default settings for HLS and DASH live streaming. Built on Alpine Linux.
 
+The server allows video streaming sources to be streamed over RTMP, which then are converted to mpeg streams viewable over an HTTP webpage or as a raw RTMP source.  Multiple stream sources are available, so you may have a large amount of input streams, that are consumed by a "video producer" using software such as [OBS Studio.](https://obsproject.com/)  The producer may then edit the streams, feeding back a master stream viewable by end users.
+
+```mermaid
+graph LR;
+1(Stream Source 1) -- RTMP --> Sierra-Axe;
+2(Stream Source 2) -- RTMP --> Sierra-Axe;
+producer(OBS Producer) -- RTMP --> Sierra-Axe;
+Sierra-Axe -- RTMP --> producer(OBS Producer);
+subgraph Sierra-Axe Container;
+Sierra-Axe;
+end
+Sierra-Axe -- HLS/DASH --> viewer(HTTP Viewer);
+```
 
 ### Server
 
@@ -12,10 +25,6 @@ default settings for HLS and DASH live streaming. Built on Alpine Linux.
 docker build --no-cache -t sierra-axe .
 docker run -it -p 1935:1935 -p 8080:80 --rm sierra-axe
 ```
-
-### Environment Variables
-
-This Docker image uses `envsubst` for environment variable substitution. You can define additional environment variables in `nginx.conf` as `${var}` and pass them in your `docker-compose` file or `docker` command.
 
 ### OBS Configuration
 

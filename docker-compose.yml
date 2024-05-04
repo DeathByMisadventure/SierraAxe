@@ -2,7 +2,7 @@ version: '3'
 
 services:
   skystream:
-    build: .
+    image: 'ghcr.io/deathbymisadventure/sierra-axe:latest'
     container_name: sierra-axe
     ports:
       - 1935:1935
@@ -12,11 +12,7 @@ services:
       - RTMP_PORT=1935
       - RTMP_FRAG_SIZE=2s
       - RTMP_PLAYLIST_LENGTH=10s
-      - STREAM_APP_NAME stream
+      - STREAM_APP_NAME=stream
     restart: always
-    labels:
-      kompose.service.type: nodeport
-      kompose.service.expose: "true"
-    # volumes:
-    # - ./static:/www/static
+
     
