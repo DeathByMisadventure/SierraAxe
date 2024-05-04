@@ -34,7 +34,7 @@ docker run -it -p 1935:1935 -p 8080:80 --rm sierra-axe
 
 * or with ffmpeg the destination will be:
 
-```cmd
+```text
 rtmp://sierra-axe-server:1935/stream/$STREAM_NAME
 ```
 
@@ -42,18 +42,18 @@ rtmp://sierra-axe-server:1935/stream/$STREAM_NAME
 
 * The RTMP streams can be watched directly with the source:
 
-```cmd
+```text
 rtmp://sierra-axe-server:1935/stream/$STREAM_NAME
 ```
 
 * Browser based viewing using HLS:
 
-```cmd
+```text
 http://sierra-axe-server/view/$STREAM_NAME
 ```
 
 * or the alternate viewer using DASH:
 
-```cmd
+```text
 http://sierra-axe-server/dash/$STREAM_NAME
 ```

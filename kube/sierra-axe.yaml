@@ -19,7 +19,7 @@ spec:
       containers:
         - name: sierra-axe
           resources: {}
-          image: 'ghcr.io/deathbymisadventure/sierra-axe:latest'
+          image: ghcr.io/deathbymisadventure/sierraaxe:latest
           imagePullPolicy: IfNotPresent
           ports:
             - name: rtmp
