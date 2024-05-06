@@ -25,12 +25,13 @@ ENV PATH "${PATH}:/usr/local/nginx/sbin"
 ADD nginx.conf /etc/nginx/nginx.conf.template
 RUN mkdir /www && mkdir -p /opt/data/d && mkdir /opt/data/h
 ADD static /www/static
-HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -f http://localhost:$HTTP_PORT/stat || exit 1
+USER nginx
 
 EXPOSE $HTTP_PORT
 EXPOSE $RTMP_PORT
-USER nginx
+
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD curl -f http://localhost:$HTTP_PORT/stat || exit 1
 
 CMD envsubst "$(env | sed -e 's/=.*//' -e 's/^/\$/g')" < \
   /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && \
