@@ -4,6 +4,7 @@ services:
   skystream:
     image: ghcr.io/deathbymisadventure/sierraaxe:latest
     container_name: sierra-axe
+    pull_policy: always
     ports:
       - 1935:1935
       - 80:80
@@ -14,3 +15,4 @@ services:
       - RTMP_PLAYLIST_LENGTH=10s
       - STREAM_APP_NAME=stream
     restart: always
+    readonly: true

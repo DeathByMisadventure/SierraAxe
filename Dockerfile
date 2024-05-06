@@ -30,6 +30,7 @@ HEALTHCHECK --interval=5m --timeout=3s \
 
 EXPOSE $HTTP_PORT
 EXPOSE $RTMP_PORT
+USER nginx
 
 CMD envsubst "$(env | sed -e 's/=.*//' -e 's/^/\$/g')" < \
   /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && \
