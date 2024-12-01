@@ -1,0 +1,25 @@
+kubernetesClusterDomain: cluster.local
+service:
+  ports:
+  - name: rmtp
+    nodePort: 31935
+    port: 1935
+    targetPort: 1935
+  - name: http
+    nodePort: 30080
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+sierraAxe:
+  replicas: 1
+  sierraAxe:
+    env:
+      httpPort: "80"
+      rtmpFragSize: 2s
+      rtmpPlaylistLength: 10s
+      rtmpPort: "1935"
+      streamAppName: stream
+    image:
+      repository: ghcr.io/deathbymisadventure/sierraaxe
+      tag: latest
+    imagePullPolicy: IfNotPresent

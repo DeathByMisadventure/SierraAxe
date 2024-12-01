@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sierra-axe.fullname" . }}-configmap
+  labels:
+    app: sierra-axe
+  {{- include "sierra-axe.labels" . | nindent 4 }}
+data:
+  HTTP_PORT: {{ quote .Values.sierraAxe.sierraAxe.env.httpPort }}
+  RTMP_FRAG_SIZE: {{ quote .Values.sierraAxe.sierraAxe.env.rtmpFragSize }}
+  RTMP_PLAYLIST_LENGTH: {{ quote .Values.sierraAxe.sierraAxe.env.rtmpPlaylistLength }}
+  RTMP_PORT: {{ quote .Values.sierraAxe.sierraAxe.env.rtmpPort }}
+  STREAM_APP_NAME: {{ quote .Values.sierraAxe.sierraAxe.env.streamAppName }}
+  KUBERNETES_CLUSTER_DOMAIN: {{ quote .Values.kubernetesClusterDomain }}

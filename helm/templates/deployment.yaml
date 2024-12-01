@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sierra-axe.fullname" . }}-deployment
+  labels:
+    app: sierra-axe
+  {{- include "sierra-axe.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.sierraAxe.replicas }}
+  selector:
+    matchLabels:
+      app: sierra-axe
+    {{- include "sierra-axe.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: sierra-axe
+      {{- include "sierra-axe.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: sierra-axe
+        image: {{ .Values.sierraAxe.sierraAxe.image.repository }}:{{ .Values.sierraAxe.sierraAxe.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.sierraAxe.sierraAxe.imagePullPolicy }}      
+        envFrom:
+        - configMapRef:
+            name: {{ include "sierra-axe.fullname" . }}-configmap
+        livenessProbe:
+          httpGet:
+            path: /stat
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 30
+        ports:
+        - containerPort: 1935
+          name: rtmp
+          protocol: TCP
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources: {}
+
