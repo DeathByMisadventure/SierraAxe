@@ -20,7 +20,7 @@ ENV RTMP_PLAYLIST_LENGTH="10s"
 # Installation of the RTMP, NGINX, and FFMPEG
 RUN apt update && \
   apt install libnginx-mod-rtmp ffmpeg gettext -y && \
-  rm -rf /var/lib/apt/lists/* 
+  rm -rf /var/lib/apt/lists/*
 
 # Add NGINX path, config and static files.
 ENV PATH="${PATH}:/usr/local/nginx/sbin"
@@ -29,7 +29,7 @@ COPY static /www/static
 COPY dockerrun.sh /dockerrun.sh
 RUN mkdir -p /opt/data/d && \
   mkdir /opt/data/h && \
-  chmod 755 /dockerrun.sh
+  chmod -R 755 /dockerrun.sh /www
 
 EXPOSE $HTTP_PORT
 EXPOSE $RTMP_PORT
