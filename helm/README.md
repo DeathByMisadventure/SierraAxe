@@ -15,7 +15,7 @@ Sierra-Axe RTMP DASH and HLS Video Streaming Server
 | sierraAxe.httpPort | string | `"80"` | HTTP published port |
 | sierraAxe.image | object | `{"repository":"ghcr.io/deathbymisadventure/sierraaxe","tag":"latest"}` | Image information |
 | sierraAxe.imagePullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| sierraAxe.resources | object | `{"limits":{"cpu":"1000m","memory":"1Gi"},"requests":{"cpu":"1000m","memory":"1Gi"}}` | Pod assigned resources |
+| sierraAxe.resources | object | `{"limits":{"cpu":"1000m","memory":"1Gi"},"requests":{"cpu":"1000m","ephemeral-storage":"2Gi","memory":"1Gi"}}` | Pod assigned resources |
 | sierraAxe.rtmpFragSize | string | `"2s"` | RTMP Tuning: Fragment Size |
 | sierraAxe.rtmpPlaylistLength | string | `"10s"` | RTMP Tuning: Playlist Length |
 | sierraAxe.rtmpPort | string | `"1935"` | RTMP published port |
