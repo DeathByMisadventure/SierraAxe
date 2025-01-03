@@ -36,3 +36,4 @@ sierraAxe:
     requests:
       cpu: 1000m
       memory: 1Gi
+      ephemeral-storage: "2Gi"

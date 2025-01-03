@@ -26,15 +26,15 @@ RUN apt update && \
 ENV PATH="${PATH}:/usr/local/nginx/sbin"
 COPY nginx.conf /etc/nginx/nginx.conf.template
 COPY static /www/static
-COPY dockerrun.sh /dockerrun.sh
+COPY *.sh /
 RUN mkdir -p /opt/data/d && \
   mkdir /opt/data/h && \
-  chmod -R 755 /dockerrun.sh /www
+  chmod -R 755 /*.sh /www
 
 EXPOSE $HTTP_PORT
 EXPOSE $RTMP_PORT
+SHELL ["/bin/bash", "-c"]
 
-HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -f http://localhost:$HTTP_PORT/stat || exit 1
+HEALTHCHECK --interval=1m --timeout=3s CMD ["/healthcheck.sh"]
 
 ENTRYPOINT [ "/dockerrun.sh" ]

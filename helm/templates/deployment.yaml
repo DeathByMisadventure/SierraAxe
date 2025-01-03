@@ -17,6 +17,7 @@ spec:
         app: sierra-axe
       {{- include "sierra-axe.selectorLabels" . | nindent 8 }}
     spec:
+      automountServiceAccountToken: false
       containers:
       - name: sierra-axe
         image: {{ .Values.sierraAxe.image.repository }}:{{ .Values.sierraAxe.image.tag | default .Chart.AppVersion }}
