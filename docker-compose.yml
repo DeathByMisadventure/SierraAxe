@@ -1,7 +1,5 @@
-version: '3'
-
 services:
-  skystream:
+  sierraaxe:
     image: ghcr.io/deathbymisadventure/sierraaxe:latest
     container_name: sierra-axe
     pull_policy: always
@@ -15,4 +13,3 @@ services:
       - RTMP_PLAYLIST_LENGTH=10s
       - STREAM_APP_NAME=stream
     restart: always
-    readonly: true

@@ -1,11 +1,9 @@
-FROM debian:bookworm
+FROM debian:latest
 
-ARG MAINTAINER="Jake Fortune"
-ARG VERSION="0.1.0"
-ARG DESCRIPTION="Sierra-Axe - RTMP Server, with HLS and DASH HTTP Streaming"
-LABEL MAINTAINER=${MAINTAINER}
-LABEL VERSION=${VERSION}
-LABEL DESCRIPTION=${DESCRIPTION}
+LABEL maintainer="Jake Fortune" \
+      version="0.1.0" \
+      description="Sierra-Axe - RTMP Server, with HLS and DASH HTTP Streaming"
+
 
 # Set default ports and tuning parameters
 ENV HTTP_PORT="80"
